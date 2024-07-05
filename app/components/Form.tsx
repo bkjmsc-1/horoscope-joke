@@ -11,6 +11,8 @@ const Form: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [animateOut, setAnimateOut] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const [generatingImage, setGeneratingImage] = useState(false);
 
   //Set the value of the day the user inputs
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +41,24 @@ const Form: React.FC = () => {
       // Set joke to "Generating joke..." before fetching
       setJoke('Generating joke...');
 
-      // Fetch the joke after setting the state for animation
+      // Fetch the joke after setting the state for animation and generate image
       getHoroscopeJoke(sign).then(response => {
         setJoke(response.joke);
+        setGeneratingImage(true);
+        generateImage(response.joke);
       });
     }, 500); 
+  };
+
+  const generateImage = async (joke: string) => {
+    try {
+      const response = await axios.post('/api/joke', { joke });
+      setImageUrl(response.data.imageUrl);
+    } catch (error) {
+      console.error('Error generating image:', error);
+    } finally {
+      setGeneratingImage(false);
+    }
   };
 
   //Check the day and month of the user input to determine what sign they are
@@ -99,13 +114,18 @@ const Form: React.FC = () => {
     setSubmitted(false);
     setAnimateIn(false);
     setJoke('');
+    setImageUrl('');
   };
 
   //Change state of program after clicking New Joke button
   const handleNewJoke = async () => {
     setJoke('Generating joke...');
-    const response = await getHoroscopeJoke(horoscope);
-    setJoke(response.joke);
+    setImageUrl('');
+    setGeneratingImage(true);
+    getHoroscopeJoke(horoscope).then(response => {
+      setJoke(response.joke);
+      generateImage(response.joke);
+    });
   };
 
   return (
@@ -154,6 +174,11 @@ const Form: React.FC = () => {
           <h2 className={styles.horoscopeName}>{horoscope} Joke</h2>
           <img src={getHoroscopeImage(horoscope)} alt={horoscope} className={styles.horoscopeImage} />
           <p className={styles.jokeText}>{joke}</p>
+          {generatingImage ? (
+            <p>Generating image...</p>
+          ) : (
+            imageUrl && <img src={imageUrl} alt="Generated from joke" className={styles.generatedImage} />
+          )}
           <div className={styles.buttonContainer}>
             <button onClick={handleEditBirthday} className={styles.formButton}>Edit Birthday</button>
             <button onClick={handleNewJoke} className={styles.formButton}>New Joke</button>
