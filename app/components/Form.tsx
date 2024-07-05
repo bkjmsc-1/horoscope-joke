@@ -12,25 +12,29 @@ const Form: React.FC = () => {
   const [animateOut, setAnimateOut] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
 
+  //Set the value of the day the user inputs
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDay(event.target.value);
   };
 
+  //Set the value of the month the user inputs
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setMonth(event.target.value);
   };
 
+  //Form submission logic
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setAnimateOut(true); // Start fade-out animation immediately
+    setAnimateOut(true); 
 
+  //Store sign value based on user input
     const sign = determineHoroscopeSign(Number(month), Number(day));
     setHoroscope(sign);
 
     setTimeout(() => {
       setSubmitted(true);
       setAnimateOut(false);
-      setAnimateIn(true); // Start fade-in animation after fade-out completes
+      setAnimateIn(true); 
 
       // Set joke to "Generating joke..." before fetching
       setJoke('Generating joke...');
@@ -39,9 +43,10 @@ const Form: React.FC = () => {
       getHoroscopeJoke(sign).then(response => {
         setJoke(response.joke);
       });
-    }, 500); // Match this duration with your fade-out animation duration
+    }, 500); 
   };
 
+  //Check the day and month of the user input to determine what sign they are
   const determineHoroscopeSign = (month: number, day: number) => {
     switch (true) {
       case (month === 1 && day >= 20) || (month === 2 && day <= 18):
@@ -73,10 +78,12 @@ const Form: React.FC = () => {
     }
   };
 
+  //Return the corresponding image based on the result of DetermineHoroscopeSign
   const getHoroscopeImage = (sign: string) => {
     return `img/horoscope_icons/${sign.toLowerCase()}.png`;
   };
 
+  //Save value of API call response
   const getHoroscopeJoke = async (horoscope: string) => {
     try {
       const response = await axios.post('/api/joke', { horoscope });
@@ -87,12 +94,14 @@ const Form: React.FC = () => {
     }
   };
 
+  //Change state of program after clicking Edit Birthday button
   const handleEditBirthday = () => {
     setSubmitted(false);
     setAnimateIn(false);
     setJoke('');
   };
 
+  //Change state of program after clicking New Joke button
   const handleNewJoke = async () => {
     setJoke('Generating joke...');
     const response = await getHoroscopeJoke(horoscope);

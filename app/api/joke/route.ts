@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
       {
         model: 'gpt-3.5-turbo',
         messages: [
-          { role: 'system', content: 'You are a funny horoscope teller. You use information about someone\'s horoscope sign, to make clever jokes. Make sure to mention the star sign. You should always generate a new joke'},
+          { role: 'system', content: 'You are a funny horoscope teller. You use information about someone\'s horoscope sign, to make clever jokes. Make sure to mention the star sign. You should always generate a new joke. Try to include the element corresponding to the horoscope sign.'},
           { role: 'user', content: `Tell me a funny joke about ${horoscope}.` },
         ],
         temperature: 0.7,
