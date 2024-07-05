@@ -1,0 +1,142 @@
+.formContainer {
+  height: 100vh;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  transition: all 0.5s ease; /* Ensure transition timing */
+}
+
+.instructions {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  transition: all 0.5s ease; /* Ensure transition timing */
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  transition: all 0.5s ease; /* Ensure transition timing */
+}
+
+.formLabel {
+  text-align: right;
+  margin-right: 10px;
+  width: 80px;
+  font-weight: bold;
+  display: inline;
+}
+
+.formInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: all 0.5s ease; /* Ensure transition timing */
+}
+
+.numberInput {
+  width: 80px;
+}
+
+.formButton {
+  display: block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #0070f3;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.1s ease; 
+}
+
+.formButton:hover {
+  background-color: #005bb5;
+}
+
+.horoscopeResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  font-weight: bold;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.horoscopeName {
+  font-size: 2.2rem;
+  font-family: var(--font-bold);
+  margin-bottom: 0.8rem;
+}
+
+.horoscopeImage {
+  width: 75px;
+}
+
+.jokeText {
+  font-family: var(--font-light);
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  width: 80%;
+}
+
+.fadeOut {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.formButton {
+  display: block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #0070f3;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.5s ease;
+}
+
+.formButton:hover {
+  background-color: #005bb5;
+}
